@@ -3,8 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Topbar from './Topbar';
 import styles from '../styles/dashBoard';
+import NavBar from './NavBar'
 
 class notFound extends Component {
 
@@ -17,11 +17,11 @@ class notFound extends Component {
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Topbar currentPath={currentPath} />
+                <NavBar login={true} currentPath={currentPath}/>
                 <div className={classes.root}>
                     <div className={classes.root}>
                         <Grid container justify="center">
-                            <div>simon</div>
+                            <div>Not found</div>
                             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
                                 <Grid item xs={12}>
                                 </Grid>

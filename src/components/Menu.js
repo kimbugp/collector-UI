@@ -21,6 +21,21 @@ const Menu = [
     }
   
   ];
+
+  export const landingMenu = [
+    {
+      label: "dashboard",
+      pathname: "/dashboard"
+    },
+    {
+      label: "Services",
+      pathname: "/services"
+    },
+    {
+      label: "About",
+      pathname: "/about"
+    }
+  ];
   
   export default Menu;
   

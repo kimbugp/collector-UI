@@ -3,7 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Topbar from './Topbar';
+import NavBar from './NavBar';
 import styles from '../styles/dashBoard';
 
 class Dashboard extends Component {
@@ -14,11 +14,11 @@ class Dashboard extends Component {
     render() {
         const { classes } = this.props;
         const currentPath = this.props.location.pathname
-
+        
         return (
             <React.Fragment>
                 <CssBaseline />
-                <Topbar currentPath={currentPath} />
+                <NavBar login={true} currentPath={currentPath}/>
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>

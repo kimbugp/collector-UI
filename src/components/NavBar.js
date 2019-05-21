@@ -13,9 +13,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { landingMenu } from './Menu';
 
 
 
@@ -91,6 +92,7 @@ const styles = theme => ({
 
 class PrimarySearchAppBar extends React.Component {
   state = {
+    value: 0,
     anchorEl: null,
     mobileMoreAnchorEl: null,
   };
@@ -112,13 +114,29 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  current = () => {
+    if (this.props.currentPath === '/dashboard') {
+      return 0
+    }
+    if (this.props.currentPath === '/services') {
+      return 1
+    }
+    if (this.props.currentPath === '/about') {
+      return 2
+    }
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, login } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const renderMenu  = (
+    const renderMenu = (
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -150,13 +168,13 @@ class PrimarySearchAppBar extends React.Component {
         </MenuItem>
         {login && (
           <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+            <IconButton color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <p>Profile</p>
+          </MenuItem>
         )}
-        
+
       </Menu>
     );
 
@@ -185,27 +203,27 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <Tabs
-                value={this.state.value}
+                value={this.current() || this.state.value}
                 onChange={this.handleChange}
-                indicatorColor="inherit"
+                indicatorColor="primary"
                 textColor="inherit"
                 variant="fullWidth"
-                >
-                <Tab label="Home" />
-                <Tab label="Services" />
-                <Tab label="About" />
+              >
+                {landingMenu.map((item, index) => (
+                  <Tab key={index} component={Link} to={{ pathname: item.pathname, search: this.props.location.search }} classes={{ root: classes.tabItem }} label={item.label} />
+                ))}
               </Tabs>
               {login && (
                 <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
 
-              )}   
+              )}
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
