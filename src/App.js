@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './routes'
-import { blue, indigo } from '@material-ui/core/colors'
+import { blue,  red } from '@material-ui/core/colors'
 
 const theme = createMuiTheme({
   palette: {
     secondary: {
-      main: blue[900]
+      main: blue[500]
     },
     primary: {
-      main: indigo[700]
+      main: blue[700]
+    },
+    error: {
+      main: red[700]
     }
   },
   typography: {
