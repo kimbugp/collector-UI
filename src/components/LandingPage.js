@@ -35,9 +35,8 @@ class LandingPage extends Component {
 
     onSignIn=(googleUser)=> {
         var profile = googleUser.getBasicProfile();
-        var user = googleUser.getAuthResponse();
-        console.log(profile,user)
-        this.setState({profile})
+        // var user = googleUser.getAuthResponse();
+        localStorage.setItem('profile',JSON.stringify(profile))
         this.props.history.push('/dashboard')
     }
 
@@ -52,7 +51,7 @@ class LandingPage extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <div style={styles.paperContainer}>
-                <NavBar login={false} currentPath={currentPath} profile={this.state.profile}/>
+                <NavBar login={false} currentPath={currentPath}/>
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>

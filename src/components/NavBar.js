@@ -11,12 +11,12 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link, withRouter } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
+import Avatar from '@material-ui/core/Avatar';
 
 
 const styles = theme => ({
@@ -124,8 +124,8 @@ class PrimarySearchAppBar extends React.Component {
       auth2.signOut().then(function () {
         console.log('User signed out.');
       }).then(
-        this.props.history.push('/')
-      );
+        localStorage.removeItem("profile"),
+        this.props.history.push('/'));
     } catch (error) {
       console.log(error);
     }
@@ -147,6 +147,7 @@ class PrimarySearchAppBar extends React.Component {
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, login } = this.props;
+    const profile = JSON.parse(window.localStorage.getItem("profile")) || null;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -183,7 +184,7 @@ class PrimarySearchAppBar extends React.Component {
         {login && (
           <MenuItem onClick={this.handleProfileMenuOpen}>
             <IconButton color="inherit">
-              <AccountCircle />
+              <Avatar alt="" src={profile.Paa} className={classes.avatar} />
             </IconButton>
             <p>Profile</p>
           </MenuItem>
@@ -234,7 +235,7 @@ class PrimarySearchAppBar extends React.Component {
                   onClick={this.handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  <Avatar alt="" src={profile.Paa} className={classes.avatar} />
                 </IconButton>
 
               )}
