@@ -45,8 +45,7 @@ const styles = theme => ({
   },
 });
 const SignIn=(props)=> {
-  const { classes, googleLogin } = props;
-  console.log(props)
+  const { classes } = props;
 
   return (
     <main className={classes.main}>
@@ -58,7 +57,7 @@ const SignIn=(props)=> {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <div className="g-signin2" data-onsuccess="googleLogin"></div>
+        <div className="g-signin2" id="g-signin2"></div>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>

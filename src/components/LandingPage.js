@@ -17,11 +17,28 @@ const styles = {
 };
 class LandingPage extends Component {
 
+    componentDidMount() {
+        window.gapi.load('auth2', () => {
+            window.gapi.auth2.init({
+            client_id: '715095933691-i190sabpa75e3ltg0ccjq326d5l3gv2h.apps.googleusercontent.com'
+        }).then(() => {
+            window.gapi.signin2.render('g-signin2', {
+              'scope': 'profile email',
+              'longtitle': false,
+              'class':'g-signin2',
+              'onsuccess': this.onSignIn,
+              'onfailure': this.onSignIn
+            })
+          }) 
+        })
+    }    
+
     onSignIn=(googleUser)=> {
         var profile = googleUser.getBasicProfile();
-        // var user = googleUser.getAuthResponse();
-        alert(profile)
-        this.props.history.push('/')
+        var user = googleUser.getAuthResponse();
+        console.log(profile,user)
+        this.setState({profile})
+        this.props.history.push('/dashboard')
     }
 
     state = {
@@ -35,7 +52,7 @@ class LandingPage extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <div style={styles.paperContainer}>
-                <NavBar login={false} currentPath={currentPath}/>
+                <NavBar login={false} currentPath={currentPath} profile={this.state.profile}/>
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>
