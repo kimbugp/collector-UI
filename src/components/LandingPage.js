@@ -18,8 +18,10 @@ const styles = {
 class LandingPage extends Component {
 
     onSignIn=(googleUser)=> {
-        var user = googleUser.getAuthResponse();
-        console.log(user)
+        var profile = googleUser.getBasicProfile();
+        // var user = googleUser.getAuthResponse();
+        alert(profile)
+        this.props.history.push('/')
     }
 
     state = {
@@ -33,12 +35,12 @@ class LandingPage extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <div style={styles.paperContainer}>
-                <NavBar login={true} currentPath={currentPath}/>
+                <NavBar login={false} currentPath={currentPath}/>
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>
                 </div>
-                <Signin onSignIn/>
+                <Signin googleLogin={this.onSignIn}/>
                 </div>
             </React.Fragment>
         )

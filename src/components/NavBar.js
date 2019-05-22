@@ -19,7 +19,6 @@ import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
 
 
-
 const styles = theme => ({
   root: {
     width: '100%',
@@ -103,7 +102,6 @@ class PrimarySearchAppBar extends React.Component {
 
   handleMenuClose = () => {
     this.setState({ anchorEl: null });
-    this.handleMobileMenuClose();
   };
 
   handleMobileMenuOpen = event => {
@@ -117,6 +115,22 @@ class PrimarySearchAppBar extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
+
+  signOut = () => {
+    this.setState({ anchorEl: null });
+
+    try {
+      var auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      }).then(
+        this.props.history.push('/')
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
 
   current = () => {
     if (this.props.currentPath === '/dashboard') {
@@ -145,7 +159,7 @@ class PrimarySearchAppBar extends React.Component {
         onClose={this.handleMenuClose}
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>Log Out</MenuItem>
+        <MenuItem onClick={this.signOut}>Log Out</MenuItem>
       </Menu>
     );
 
