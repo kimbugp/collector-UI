@@ -6,6 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import NavBar from './NavBar'
 import Image from "../img/main.jpg"
 import Signin from "../others/login"
+import { Auth } from '../routes';
+import loginAction from '../actions/login';
+import { async } from 'q';
 
 
 const styles = {
@@ -31,13 +34,26 @@ class LandingPage extends Component {
             })
           }) 
         })
-    }    
+    }
 
-    onSignIn=(googleUser)=> {
+    onSignIn= async(googleUser)=> {
         var profile = googleUser.getBasicProfile();
-        // var user = googleUser.getAuthResponse();
+        var access_token = googleUser.Zi.access_token
         localStorage.setItem('profile',JSON.stringify(profile))
-        this.props.history.push('/dashboard')
+        Auth.authenticate((loginAction) => {
+        })
+        // eslint-disable-next-line no-unused-vars
+        let res = await loginAction({access_token:access_token});
+        
+        if(this.props.location.state instanceof(Object)){
+            this.props.history.push(this.props.location.state.from.pathname)
+            
+        }
+        else{
+            this.props.history.push('/dashboard')
+
+        }
+        
     }
 
     state = {
