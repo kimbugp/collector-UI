@@ -107,6 +107,7 @@ class PrimarySearchAppBar extends React.Component {
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget });
+
   };
 
   handleMobileMenuClose = () => {
@@ -180,15 +181,15 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>Home</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>Services</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>About</p>
-        </MenuItem>
+        {landingMenu.map((item, index) => (
+          <MenuItem onClick={this.handleMobileMenuClose} key={index}
+            component={Link} to={{
+              pathname: item.pathname,
+              search: this.props.location.search
+            }} classes={{ root: classes.tabItem }}
+            label={item.label}>
+            <p>{item.label}</p>
+          </MenuItem>))}
         {login && (
           <MenuItem onClick={this.handleProfileMenuOpen}>
             <IconButton color="inherit">

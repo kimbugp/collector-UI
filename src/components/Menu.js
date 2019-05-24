@@ -20,7 +20,7 @@ const ServicesMenu = [
 
 export const landingMenu = [
   {
-    label: "dashboard",
+    label: "Dashboard",
     pathname: "/dashboard"
   },
   {
