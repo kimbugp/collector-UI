@@ -1,29 +1,29 @@
 import React from 'react'
-import { Route, BrowserRouter, Switch ,Redirect } from 'react-router-dom'
+import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import Dashboard from './components/DashBoard'
 import ScrollToTop from './components/ScrollTop'
 import notFound from './components/NotFound'
 import LandingPage from './components/LandingPage';
-import Topbar from './components/Topbar'
+import Services from './components/services/Services';
 
 export default props => (
   <BrowserRouter >
-      <ScrollToTop>
-        <Switch>
-          <PrivateRoute exact path='/dashboard' component={ Dashboard } />
-          <Route exact path='/' component={LandingPage} />
-          <PrivateRoute path='/topbar' component={Topbar}/>
-          <PrivateRoute component ={notFound} exact strict />
-        </Switch>
-      </ScrollToTop>
-    </BrowserRouter>
-  )
+    <ScrollToTop>
+      <Switch>
+        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/' component={LandingPage} />
+        <PrivateRoute path='/services' component={Services} />
+        <Route component={notFound} exact strict />
+      </Switch>
+    </ScrollToTop>
+  </BrowserRouter>
+)
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     Auth.isAuthenticated === true
       ? <Component {...props} />
-      : <Redirect to={{pathname:'/',state: { from: props.location }}}/>
+      : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
   )} />
 )
 

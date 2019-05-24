@@ -1,41 +1,36 @@
-const Menu = [
-    {
-      label: "Home",
-      pathname: "/"
-    },
-    {
-      label: "Houses",
-      pathname: "/houses"
-    },
-    {
-      label: "Tenants",
-      pathname: "/tenants"
-    },
-    {
-      label: "Receipting",
-      pathname: "/receipts"
-    },
-    {
-      label: "Reports",
-      pathname: "/reports"
-    }
-  
-  ];
+const ServicesMenu = [
+  {
+    label: "Houses",
+    pathname: "/services/houses"
+  },
+  {
+    label: "Tenants",
+    pathname: "/services/tenants"
+  },
+  {
+    label: "Receipting",
+    pathname: "/services/receipts"
+  },
+  {
+    label: "Reports",
+    pathname: "/services/reports"
+  }
 
-  export const landingMenu = [
-    {
-      label: "dashboard",
-      pathname: "/dashboard"
-    },
-    {
-      label: "Services",
-      pathname: "/services"
-    },
-    {
-      label: "About",
-      pathname: "/about"
-    }
-  ];
-  
-  export default Menu;
-  
+];
+
+export const landingMenu = [
+  {
+    label: "dashboard",
+    pathname: "/dashboard"
+  },
+  {
+    label: "Services",
+    pathname: "/services"
+  },
+  {
+    label: "About",
+    pathname: "/about"
+  }
+];
+
+export default ServicesMenu;

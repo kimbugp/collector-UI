@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, matchPath } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
@@ -141,7 +141,10 @@ class PrimarySearchAppBar extends React.Component {
     if (this.props.currentPath === '/dashboard') {
       return 0
     }
-    if (this.props.currentPath === '/services') {
+    if (matchPath(this.props.currentPath, {
+      path: '/services'
+    })
+    ) {
       return 1
     }
     if (this.props.currentPath === '/about') {
