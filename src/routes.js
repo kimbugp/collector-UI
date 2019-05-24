@@ -19,15 +19,16 @@ export default props => (
   </BrowserRouter>
 )
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    Auth.isAuthenticated === true
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const isLoggedIn = Authenticate.isAuthenticated;
+  return (<Route {...rest} render={(props) => (
+    isLoggedIn === true
       ? <Component {...props} />
       : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
-  )} />
-)
+  )} />);
+}
 
-export const Auth = {
+export const Authenticate ={
   isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true
