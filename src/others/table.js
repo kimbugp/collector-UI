@@ -1,5 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
+import HousesAction from '../actions/houses';
 
 export default function Table(props) {
 
@@ -7,7 +8,7 @@ export default function Table(props) {
     columns: [
       { title: 'House', field: 'house_name', type: 'string' },
       { title: 'Rate', field: 'rate', type: 'currency' },
-      { title: 'Tenant', field: 'tenant', type: 'string' },
+      // { title: 'Tenant', field: 'tenant', type: 'string' },
       { title: 'Paid', field: 'is_paid', type: 'boolean' },
       { title: 'Start Date', field: 'start_date', type: 'date' },
     ],
@@ -38,7 +39,10 @@ export default function Table(props) {
     <MaterialTable
       title={props.title}
       columns={state.columns}
-      data={state.data}
+      data={async()=>{
+        let res = await HousesAction()
+        return res
+      }}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
