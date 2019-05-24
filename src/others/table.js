@@ -2,28 +2,38 @@ import React from 'react';
 import MaterialTable from 'material-table';
 
 export default function Table(props) {
+
   const [state, setState] = React.useState({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
+      { title: 'House', field: 'house_name', type: 'string' },
+      { title: 'Rate', field: 'rate', type: 'currency' },
+      { title: 'Tenant', field: 'tenant', type: 'string' },
+      { title: 'Paid', field: 'is_paid', type: 'boolean' },
+      { title: 'Start Date', field: 'start_date', type: 'date' },
     ],
     data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
       {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
+        identifier: "05848e3a-4ca1-4ec4-bdf1-98f5780062d5",
+        house_name: "Lagos 24th Street",
+        rate: 200000,
+        is_occupied: true,
+        start_date: "2019-04-29",
+        tenant: "kimbugwe.simon-pete@andela.com",
+        is_paid: true,
+        owner: { "email": "simon@simon.com" },
+      },
+      {
+        identifier: "05848e3a-4ca1-4ec4-bdf1-98f5780062d5",
+        house_name: "Lagos 24th Street",
+        rate: 200000,
+        is_occupied: true,
+        start_date: "2019-04-29",
+        tenant: "kimbugwe.simon-pete@andela.com",
+        is_paid: false,
+        owner: { "email": "simon@simon.com" },
       },
     ],
   });
-
   return (
     <MaterialTable
       title={props.title}

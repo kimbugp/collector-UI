@@ -14,7 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Menu from '../Menu';
-import { HousesService } from '../../others/houses';
+import HousesService from '../../others/houses';
 
 
 const styles = theme => ({
@@ -81,7 +81,7 @@ const styles = theme => ({
 class Topbar extends Component {
 
   state = {
-    value: 1,
+    value: 0,
     menuDrawer: false
   };
 
@@ -170,7 +170,7 @@ class Topbar extends Component {
             </Grid>
           </Toolbar>
         </AppBar>
-        {this.state.value === 0 && <HousesService />}
+        {this.state.value === 0 && <HousesService/>}
       </React.Fragment>
 
     )
