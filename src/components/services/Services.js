@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import NavBar from '../NavBar'
 import Grid from '@material-ui/core/Grid';
 import styles from '../../styles/dashBoard';
-import Topbar from './ServicesMenu';
+import ServicesMenu from './ServicesMenu';
 
 
 class Services extends Component {
@@ -19,7 +19,7 @@ class Services extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <NavBar login={true} currentPath={currentPath} />
-                <Topbar />
+                <ServicesMenu />
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>

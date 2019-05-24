@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Menu from '../Menu';
+import { HousesService } from '../../others/houses';
 
 
 const styles = theme => ({
@@ -100,58 +101,78 @@ class Topbar extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-
     const { classes } = this.props;
-    console.log(this.state.value)
 
     return (
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Grid container spacing={24} alignItems="baseline">
-            <Grid item xs={12} className={classes.flex}>
-              <div className={classes.inline}>
-                <Typography variant="h6" color="inherit" noWrap>
-                  <Link to='/services' className={classes.link}>
-                    <img width={20} src={'logo'} alt="" />
-                    <span className={classes.tagline}>Services</span>
-                  </Link>
-                </Typography>
-              </div>
-              {!this.props.noTabs && (
-                <React.Fragment>
-                  <div className={classes.iconContainer}>
-                    <IconButton onClick={this.mobileMenuOpen} className={classes.iconButton} color="inherit" aria-label="Menu">
-                      <MenuIcon />
-                    </IconButton>
-                  </div>
-                  <div className={classes.tabContainer}>
-                    <SwipeableDrawer anchor="left" open={this.state.menuDrawer} onClose={this.mobileMenuClose} onOpen={this.mobileMenuOpen}>
-                      <AppBar title="Menu" />
-                      <List>
+      <React.Fragment>
+        <AppBar position="absolute" color="default" className={classes.appBar}>
+          <Toolbar>
+            <Grid container spacing={24} alignItems="baseline">
+              <Grid item xs={12} className={classes.flex}>
+                <div className={classes.inline}>
+                  <Typography variant="h6" color="inherit" noWrap>
+                    <Link to='/services' className={classes.link}>
+                      <img width={20} src={'logo'} alt="" />
+                      <span className={classes.tagline}>Services</span>
+                    </Link>
+                  </Typography>
+                </div>
+                {!this.props.noTabs && (
+                  <React.Fragment>
+                    <div className={classes.iconContainer}>
+                      <IconButton onClick={this.mobileMenuOpen}
+                        className={classes.iconButton}
+                        color="inherit"
+                        aria-label="Menu">
+                        <MenuIcon />
+                      </IconButton>
+                    </div>
+                    <div className={classes.tabContainer}>
+                      <SwipeableDrawer anchor="left"
+                        open={this.state.menuDrawer}
+                        onClose={this.mobileMenuClose}
+                        onOpen={this.mobileMenuOpen}>
+                        <AppBar title="Menu" />
+                        <List>
+                          {Menu.map((item, index) => (
+                            <ListItem component={Link}
+                              to={{
+                                pathname: item.pathname,
+                                search: this.props.location.search
+                              }}
+                              button key={item.label}>
+                              <ListItemText primary={item.label} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </SwipeableDrawer>
+                      <Tabs
+                        value={this.state.value}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        onChange={this.handleChange}
+                      >
                         {Menu.map((item, index) => (
-                          <ListItem component={Link} to={{ pathname: item.pathname, search: this.props.location.search }} button key={item.label}>
-                            <ListItemText primary={item.label} />
-                          </ListItem>
+                          <Tab key={index}
+                            component={Link}
+                            to={{
+                              pathname: item.pathname,
+                              search: this.props.location.search
+                            }}
+                            classes={{ root: classes.tabItem }}
+                            label={item.label} />
                         ))}
-                      </List>
-                    </SwipeableDrawer>
-                    <Tabs
-                      value={this.state.value}
-                      indicatorColor="primary"
-                      textColor="primary"
-                      onChange={this.handleChange}
-                    >
-                      {Menu.map((item, index) => (
-                        <Tab key={index} component={Link} to={{ pathname: item.pathname, search: this.props.location.search }} classes={{ root: classes.tabItem }} label={item.label} />
-                      ))}
-                    </Tabs>
-                  </div>
-                </React.Fragment>
-              )}
+                      </Tabs>
+                    </div>
+                  </React.Fragment>
+                )}
+              </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+        {this.state.value === 0 && <HousesService />}
+      </React.Fragment>
+
     )
   }
 }

@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link, withRouter, matchPath } from 'react-router-dom';
@@ -206,9 +205,6 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               Collector
             </Typography>
