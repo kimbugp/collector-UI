@@ -11,13 +11,13 @@ class notFound extends Component {
     state = {
     };
     render() {
-        const { classes } = this.props;
+        const { classes,isAuthenticated } = this.props;
         const currentPath = this.props.location.pathname
 
         return (
             <React.Fragment>
                 <CssBaseline />
-                <NavBar login={true} currentPath={currentPath}/>
+                <NavBar login={isAuthenticated} currentPath={currentPath}/>
                 <div className={classes.root}>
                     <div className={classes.root}>
                         <Grid container justify="center">

@@ -9,15 +9,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, matchPath } from 'react-router-dom';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
 import Avatar from '@material-ui/core/Avatar';
-import { Auth } from '../routes';
+import { Authenticate } from '../routes';
 
 
 const styles = theme => ({
@@ -44,16 +43,16 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
+      marginLeft: theme.spacing(3),
       width: 'auto',
     },
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -69,7 +68,7 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -107,6 +106,7 @@ class PrimarySearchAppBar extends React.Component {
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget });
+
   };
 
   handleMobileMenuClose = () => {
@@ -124,7 +124,7 @@ class PrimarySearchAppBar extends React.Component {
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
-        Auth.signout(() => {
+        Authenticate.signout(() => {
 
         });
       }).then(
@@ -141,7 +141,10 @@ class PrimarySearchAppBar extends React.Component {
     if (this.props.currentPath === '/dashboard') {
       return 0
     }
-    if (this.props.currentPath === '/services') {
+    if (matchPath(this.props.currentPath, {
+      path: '/services'
+    })
+    ) {
       return 1
     }
     if (this.props.currentPath === '/about') {
@@ -177,15 +180,15 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>Home</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>Services</p>
-        </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <p>About</p>
-        </MenuItem>
+        {landingMenu.map((item, index) => (
+          <MenuItem onClick={this.handleMobileMenuClose} key={index}
+            component={Link} to={{
+              pathname: item.pathname,
+              search: this.props.location.search
+            }} classes={{ root: classes.tabItem }}
+            label={item.label}>
+            <p>{item.label}</p>
+          </MenuItem>))}
         {login && (
           <MenuItem onClick={this.handleProfileMenuOpen}>
             <IconButton color="inherit">
@@ -202,9 +205,6 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               Collector
             </Typography>

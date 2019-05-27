@@ -1,24 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import NavBar from '../NavBar'
 import Grid from '@material-ui/core/Grid';
-import NavBar from './NavBar';
-import styles from '../styles/dashBoard';
+import styles from '../../styles/dashBoard';
+import ServicesMenu from './ServicesMenu';
 
-class Dashboard extends Component {
 
+class Services extends Component {
     state = {
-        data: []
     };
-    render() {
-        const { classes } = this.props;
-        const currentPath = this.props.location.pathname
 
+    render() {
+        const currentPath = this.props.location.pathname
+        const { classes } = this.props;
         return (
             <React.Fragment>
                 <CssBaseline />
                 <NavBar login={true} currentPath={currentPath} />
+                <ServicesMenu />
                 <div className={classes.root}>
                     <Grid container justify="center">
                     </Grid>
@@ -28,4 +29,4 @@ class Dashboard extends Component {
     }
 }
 
-export default withRouter(withStyles(styles)(Dashboard));
+export default withRouter(withStyles(styles)(Services));
