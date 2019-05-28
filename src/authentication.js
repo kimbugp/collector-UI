@@ -14,8 +14,11 @@ export const Authenticate = () => {
 export const authentication = {
   login(cb) {
     localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('access_token',cb)
+
   },
   signout(cb) {
     localStorage.setItem('isAuthenticated', 'false');
+    localStorage.clear()
   }
 }

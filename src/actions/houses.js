@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '.';
 import { HOUSES_URL } from './index';
 
 const HousesAction = async (url) => {

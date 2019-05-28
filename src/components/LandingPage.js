@@ -8,8 +8,6 @@ import Image from "../img/main.jpg"
 import Signin from "../others/login"
 import { authentication } from "../authentication";
 import loginAction from '../actions/login';
-// eslint-disable-next-line no-unused-vars
-import { async } from 'q';
 
 
 const styles = {
@@ -41,7 +39,7 @@ class LandingPage extends Component {
         var profile = googleUser.getBasicProfile();
         var access_token = googleUser.Zi.access_token
         localStorage.setItem('profile', JSON.stringify(profile))
-        authentication.login()
+        authentication.login(access_token)
         // eslint-disable-next-line no-unused-vars
         let res = await loginAction({ access_token: access_token });
 

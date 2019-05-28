@@ -1,5 +1,5 @@
 import { TENANTS_URL, USERS_URL } from ".";
-import axios from 'axios';
+import axios from '.';
 
 
 export const getTenants = async () => {
