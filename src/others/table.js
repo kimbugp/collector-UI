@@ -98,7 +98,6 @@ export default class Table extends React.Component {
           }}
         />
         <TableRow>
-          {console.log(this.state)}
           <TableCell rowSpan={3} />
           <TableCell colSpan={2}>Subtotal</TableCell>
           <TableCell align="left">{this.state.sum}</TableCell>

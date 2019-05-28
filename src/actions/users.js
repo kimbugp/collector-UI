@@ -1,13 +1,22 @@
-import { TENANTS_URL } from ".";
+import { TENANTS_URL, USERS_URL } from ".";
 import axios from 'axios';
 
 
 export const getTenants = async () => {
-    try {
-      let res = await axios.get(`${TENANTS_URL}`)
-      return res.data;
-    } catch (error) {
-      console.log(error)
-    }
-  };
-  
+  try {
+    let res = await axios.get(`${TENANTS_URL}`)
+    return res.data;
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export const getUsers = async (url) => {
+  try {
+    let res = await axios.get(`${USERS_URL}?${url}`)
+    return res.data;
+  } catch (error) {
+    console.log(error)
+  }
+};
+
