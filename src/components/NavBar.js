@@ -16,7 +16,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
 import Avatar from '@material-ui/core/Avatar';
-import { Authenticate } from '../routes';
+import { Authenticate } from "../authentication";
 
 
 const styles = theme => ({
