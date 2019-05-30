@@ -4,7 +4,7 @@ import { LOGIN_URL } from './index';
 const loginAction = async (data) => {
   try {
     let res = await axios.post(`${LOGIN_URL}${'google-oauth2/'}`, data)
-    return res;
+    return res.data;
   } catch (error) {
     console.log(error)
   }

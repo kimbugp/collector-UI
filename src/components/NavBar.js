@@ -125,9 +125,9 @@ class PrimarySearchAppBar extends React.Component {
         console.log('User signed out.');
       });
     }
-    catch(err) {
+    catch (err) {
       console.log(err);
-    } 
+    }
     finally {
       authentication.signout();
       localStorage.removeItem("profile");
@@ -153,7 +153,7 @@ class PrimarySearchAppBar extends React.Component {
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes, login } = this.props;
-    const profile = JSON.parse(window.localStorage.getItem("profile")) || null;
+    const profile = JSON.parse(localStorage.getItem("profile")) || {};
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
