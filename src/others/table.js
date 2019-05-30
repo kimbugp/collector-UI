@@ -13,10 +13,11 @@ export default class Table extends React.Component {
 
   state = {
     columns: [
-      { title: 'House', field: 'house_name', type: 'string' },
-      { title: 'Rate', field: 'rate', type: 'numeric' },
+      { title: 'House', field: 'house_name', type: 'string', filtering: false },
+      { title: 'Rate', field: 'rate', type: 'numeric', filtering: false },
+      { title: 'Occupied', field: 'is_occupied', type: 'boolean' },
       {
-        title: 'Tenant', field: 'tenant.email', type: 'string',
+        title: 'Tenant', field: 'tenant.email', type: 'string', filtering: false,
         editComponent: () => (
           <FormControl>
             <Select
@@ -35,7 +36,7 @@ export default class Table extends React.Component {
         )
       },
       { title: 'Paid', field: 'is_paid', type: 'boolean', editable: 'never' },
-      { title: 'Start Date', field: 'start_date', type: 'date' },
+      { title: 'Start Date', field: 'start_date', type: 'date', filtering: false },
     ],
     data: [
     ],
@@ -58,8 +59,24 @@ export default class Table extends React.Component {
             query =>
               new Promise(async (resolve, reject) => {
                 let url = `page=${query.page + 1}`
-                let res = await HousesAction(url)
-                let sum=res.results.map(resp=>(resp.rate)).reduce((partial_sum, a) => partial_sum + a,0);
+                let filters = (queries) => {
+                  let url = '';
+                  if (queries) {
+                    queries.map(query => {
+                      console.log(query)
+                      url += `&${query.column.field}=${
+                        query.column.type !== 'boolean' ?
+                          query.value : query.value === 'checked' ?
+                            true : false}`
+                      return url
+                    })
+                  }
+                  return url
+
+                }
+                let search = query.search ? `&search=${query.search}` : ''
+                let res = await HousesAction(url + search + filters(query.filters))
+                let sum = res.results.map(resp => (resp.rate)).reduce((partial_sum, a) => partial_sum + a, 0);
                 this.setState({ sum: sum })
                 resolve({
                   data: res.results,
@@ -95,10 +112,15 @@ export default class Table extends React.Component {
                   resolve();
                 }, 600);
               }),
+
+          }}
+          options={{
+            filtering: true,
+            exportButton: true
+
           }}
         />
         <TableRow>
-          {console.log(this.state)}
           <TableCell rowSpan={3} />
           <TableCell colSpan={2}>Subtotal</TableCell>
           <TableCell align="left">{this.state.sum}</TableCell>

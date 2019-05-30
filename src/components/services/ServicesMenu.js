@@ -14,7 +14,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Menu from '../Menu';
-import HousesService from '../../others/houses';
+import HousesService from './houses';
+import TenantsService from './tenants';
 
 
 const styles = theme => ({
@@ -171,6 +172,7 @@ class Topbar extends Component {
           </Toolbar>
         </AppBar>
         {this.state.value === 0 && <HousesService/>}
+        {this.state.value === 1 && <TenantsService/>}
       </React.Fragment>
 
     )

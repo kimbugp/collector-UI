@@ -16,7 +16,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { landingMenu } from './Menu';
 import Avatar from '@material-ui/core/Avatar';
-import { Authenticate } from '../routes';
+import { authentication } from "../authentication";
 
 
 const styles = theme => ({
@@ -119,22 +119,20 @@ class PrimarySearchAppBar extends React.Component {
 
   signOut = () => {
     this.setState({ anchorEl: null });
-
     try {
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
-        Authenticate.signout(() => {
-
-        });
-      }).then(
-        localStorage.removeItem("profile"),
-        this.props.history.push('/'));
-    } catch (error) {
-      console.log(error);
+      });
     }
-
-
+    catch(err) {
+      console.log(err);
+    } 
+    finally {
+      authentication.signout();
+      localStorage.removeItem("profile");
+      this.props.history.push('/');
+    }
   }
 
   current = () => {

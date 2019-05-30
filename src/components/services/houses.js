@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography';
 import React, { Component } from 'react';
-import Table from './table';
-import { getTenants } from '../actions/users';
+import { getTenants } from '../../actions/users';
+import Table from '../../others/table';
 
 export default class HousesService extends Component {
     state = {
