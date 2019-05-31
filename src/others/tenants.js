@@ -1,6 +1,5 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import { getUsers } from '../actions/users';
 
 
 export default class TenantsTable extends React.Component {
@@ -10,32 +9,33 @@ export default class TenantsTable extends React.Component {
       { title: 'Name', field: 'name', type: 'string' },
       { title: 'Username', field: 'username', type: 'string' },
       { title: 'Email', field: 'email', type: 'string' },
+      { title: 'Admin', field: 'is_staff', type: 'boolean' },
     ],
     data: [
     ],
   }
-
+  addTenant = (data) => new Promise(resolve => {
+    setTimeout(() => {
+      this.props.updateUsers(data)
+      this.setState({ data }, () => resolve());
+      resolve();
+    }, 600);
+  })
   render() {
     return (
       <React.Fragment>
         <MaterialTable
           title={this.props.title}
           columns={this.state.columns}
-          data={
-            query =>
-              new Promise(async (resolve, reject) => {
-                let url = `page=${query.page + 1}`
-                let res = await getUsers(url)
-                resolve({
-                  data: res.results,
-                  page: res.current - 1,
-                  totalCount: res.count
-                });
-                reject(
-                  "failed"
-                );
-              })
-          }
+          data={this.props.tenants}
+          editable={{
+            onRowAdd: this.addTenant
+          }}
+          options={{
+            filtering: true,
+            exportButton: true
+
+          }}
         />
       </React.Fragment>
     );

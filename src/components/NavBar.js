@@ -19,6 +19,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { authentication } from "../authentication";
 
 
+
 const styles = theme => ({
   root: {
     width: '100%',
