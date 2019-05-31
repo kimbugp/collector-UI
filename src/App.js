@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './routes'
-import { blue,  red } from '@material-ui/core/colors'
+import { blue, red } from '@material-ui/core/colors'
+import { Provider } from "react-redux";
+import store from "./store";
 
 const theme = createMuiTheme({
   palette: {
@@ -29,9 +31,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider theme={theme}>
-          <Routes />
-        </MuiThemeProvider>
+        <Provider store={store}>
+          <MuiThemeProvider theme={theme}>
+            <Routes />
+          </MuiThemeProvider>
+        </Provider>
       </div>
     );
   }
