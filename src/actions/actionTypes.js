@@ -5,3 +5,4 @@ export const ADD_HOUSES = "ADD_HOUSES";
 export const GET_HOUSE = "GET_HOUSE";
 export const DELETE_HOUSE = "DELETE_HOUSE";
 export const EDIT_HOUSE = "EDIT_HOUSE";
+export const GET_USERS = "GET_USERS";

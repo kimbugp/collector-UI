@@ -1,20 +1,11 @@
 import axios from '.';
 import { HOUSES_URL } from './index';
-import { GET_HOUSES, ERROR } from './actionTypes';
 
-const HousesAction = async (url) => async (dispatch) => {
+const HousesAction = async (url) => {
   try {
     let res = await axios.get(`${HOUSES_URL}?${url}`)
-    dispatch({
-      type: GET_HOUSES,
-      payload: res.data
-    });
     return res.data;
   } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload: error.data
-    });
     console.log(error)
   }
 };

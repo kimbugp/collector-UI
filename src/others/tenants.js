@@ -1,6 +1,5 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import { getUsers } from '../actions/users';
 
 
 export default class TenantsTable extends React.Component {
@@ -21,21 +20,7 @@ export default class TenantsTable extends React.Component {
         <MaterialTable
           title={this.props.title}
           columns={this.state.columns}
-          data={
-            query =>
-              new Promise(async (resolve, reject) => {
-                let url = `page=${query.page + 1}`
-                let res = await getUsers(url)
-                resolve({
-                  data: res.results,
-                  page: res.current - 1,
-                  totalCount: res.count
-                });
-                reject(
-                  "failed"
-                );
-              })
-          }
+          data={this.props.tenants}
         />
       </React.Fragment>
     );
