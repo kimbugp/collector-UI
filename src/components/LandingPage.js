@@ -39,14 +39,12 @@ class LandingPage extends Component {
         var profile = googleUser.getBasicProfile();
         var access_token = googleUser.Zi.access_token
         let res = await loginAction({ access_token: access_token });
-        authentication.login(access_token,res,profile)
+        authentication.login(access_token, res, profile)
         if (this.props.location.state instanceof (Object)) {
             this.props.history.push(this.props.location.state.from.pathname)
-
         }
         else {
             this.props.history.push('/dashboard')
-
         }
 
     }
