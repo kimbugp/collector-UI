@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography';
 import React, { Component } from 'react';
 import TenantsTable from '../../others/tenants';
-import { getUsers } from '../../actions/users';
+import { getUsers, updateUsers } from '../../actions/users';
 import { connect } from "react-redux";
 
 export class TenantsService extends Component {
@@ -17,7 +17,7 @@ export class TenantsService extends Component {
         return (
             <Typography component="div" style={{ padding: 8 * 3 }}>
                 {this.props.children}
-                <TenantsTable title='Tenants' tenants={this.props.tenants} />
+                <TenantsTable title='Tenants' tenants={this.props.tenants} updateUsers={this.props.updateUsers} />
             </Typography>
         );
     }
@@ -30,6 +30,6 @@ const mapStateToProps = ({ userReducer }) => ({
 
 export default connect(
     mapStateToProps,
-    { getUsers }
+    { getUsers, updateUsers }
 )(TenantsService);
 

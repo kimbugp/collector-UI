@@ -1,7 +1,7 @@
-import { GET_USERS } from "../../actions/actionTypes";
+import { GET_USERS, UPDATE_USERS } from "../../actions/actionTypes";
 
 const initialState = {
-    tenants:[]
+    tenants: []
 };
 
 export default function userReducer(state = initialState, action) {
@@ -11,6 +11,9 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 tenants: action.payload
             };
+        case UPDATE_USERS:
+            state.tenants.unshift(action.payload)
+            return state
         default:
             return state;
     }

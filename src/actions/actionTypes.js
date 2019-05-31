@@ -6,3 +6,4 @@ export const GET_HOUSE = "GET_HOUSE";
 export const DELETE_HOUSE = "DELETE_HOUSE";
 export const EDIT_HOUSE = "EDIT_HOUSE";
 export const GET_USERS = "GET_USERS";
+export const UPDATE_USERS = "UPDATE_USERS";

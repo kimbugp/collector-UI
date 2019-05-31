@@ -13,7 +13,13 @@ export default class TenantsTable extends React.Component {
     data: [
     ],
   }
-
+  addTenant = (data) => new Promise(resolve => {
+    setTimeout(() => {
+      this.props.updateUsers(data)
+      this.setState({ data }, () => resolve());
+      resolve();
+    }, 600);
+  })
   render() {
     return (
       <React.Fragment>
@@ -21,6 +27,9 @@ export default class TenantsTable extends React.Component {
           title={this.props.title}
           columns={this.state.columns}
           data={this.props.tenants}
+          editable={{
+            onRowAdd: this.addTenant
+          }}
         />
       </React.Fragment>
     );
