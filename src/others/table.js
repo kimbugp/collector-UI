@@ -1,6 +1,5 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import HousesAction, { createHouse, deleteHouse } from '../actions/houses';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -55,65 +54,36 @@ export default class Table extends React.Component {
         <MaterialTable
           title={this.props.title}
           columns={this.state.columns}
-          data={
-            query =>
-              new Promise(async (resolve, reject) => {
-                let url = `page=${query.page + 1}`
-                let filters = (queries) => {
-                  let url = '';
-                  if (queries) {
-                    queries.map(query => {
-                      console.log(query)
-                      url += `&${query.column.field}=${
-                        query.column.type !== 'boolean' ?
-                          query.value : query.value === 'checked' ?
-                            true : false}`
-                      return url
-                    })
-                  }
-                  return url
+          data={this.props.houses}
+          // editable={{
+          //   onRowAdd: newData =>
+          //     new Promise(resolve => {
+          //       setTimeout(async () => {
+          //         let date = newData.start_date.getFullYear()
+          //           + "-" + (newData.start_date.getMonth() + 1)
+          //           + "-" + newData.start_date.getDate()
+          //         let house = newData
+          //         house.start_date = date
+          //         house.tenant_id = this.state.tenantId
+          //         await createHouse(house)
+          //         const data = this.state.data;
+          //         data.push(newData);
+          //         this.setState({ data }, () => resolve());
+          //         resolve();
+          //       }, 600);
+          //     }),
+          //   onRowDelete: oldData =>
+          //     new Promise(resolve => {
+          //       setTimeout(async () => {
+          //         let data = this.state.data;
+          //         await deleteHouse(oldData.identifier)
+          //         data.splice(data.indexOf(oldData), 1);
+          //         this.setState({ data }, () => resolve());
+          //         resolve();
+          //       }, 600);
+          //     }),
 
-                }
-                let search = query.search ? `&search=${query.search}` : ''
-                let res = await HousesAction(url + search + filters(query.filters))
-                let sum = res.results.map(resp => (resp.rate)).reduce((partial_sum, a) => partial_sum + a, 0);
-                this.setState({ sum: sum })
-                resolve({
-                  data: res.results,
-                  page: res.current - 1,
-                  totalCount: res.count
-                });
-              })
-          }
-          editable={{
-            onRowAdd: newData =>
-              new Promise(resolve => {
-                setTimeout(async () => {
-                  let date = newData.start_date.getFullYear()
-                    + "-" + (newData.start_date.getMonth() + 1)
-                    + "-" + newData.start_date.getDate()
-                  let house = newData
-                  house.start_date = date
-                  house.tenant_id = this.state.tenantId
-                  await createHouse(house)
-                  const data = this.state.data;
-                  data.push(newData);
-                  this.setState({ data }, () => resolve());
-                  resolve();
-                }, 600);
-              }),
-            onRowDelete: oldData =>
-              new Promise(resolve => {
-                setTimeout(async () => {
-                  let data = this.state.data;
-                  await deleteHouse(oldData.identifier)
-                  data.splice(data.indexOf(oldData), 1);
-                  this.setState({ data }, () => resolve());
-                  resolve();
-                }, 600);
-              }),
-
-          }}
+          // }}
           options={{
             filtering: true,
             exportButton: true

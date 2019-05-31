@@ -4,6 +4,7 @@ import Routes from './routes'
 import { blue, red } from '@material-ui/core/colors'
 import { Provider } from "react-redux";
 import store from "./store";
+import ErrorService from './others/errors';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,13 +29,15 @@ const theme = createMuiTheme({
 
 
 class App extends Component {
+
   render() {
     return (
-        <Provider store={store}>
-          <MuiThemeProvider theme={theme}>
-            <Routes />
-          </MuiThemeProvider>
-        </Provider>
+      <Provider store={store}>
+        <MuiThemeProvider theme={theme}>
+          <ErrorService />
+          <Routes />
+        </MuiThemeProvider>
+      </Provider>
     );
   }
 }

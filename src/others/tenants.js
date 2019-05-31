@@ -9,6 +9,7 @@ export default class TenantsTable extends React.Component {
       { title: 'Name', field: 'name', type: 'string' },
       { title: 'Username', field: 'username', type: 'string' },
       { title: 'Email', field: 'email', type: 'string' },
+      { title: 'Admin', field: 'is_staff', type: 'boolean' },
     ],
     data: [
     ],
@@ -29,6 +30,11 @@ export default class TenantsTable extends React.Component {
           data={this.props.tenants}
           editable={{
             onRowAdd: this.addTenant
+          }}
+          options={{
+            filtering: true,
+            exportButton: true
+
           }}
         />
       </React.Fragment>

@@ -21,7 +21,10 @@ export const getUsers = (url) => {
       });
     }
     catch (error) {
-      dispatch({ ERROR });
+      dispatch({
+        type: ERROR,
+        payload: error
+      });
       console.log(error)
     }
 
@@ -38,8 +41,10 @@ export const updateUsers = (data) => {
       });
     }
     catch (error) {
-      dispatch({ ERROR });
-      console.log(error)
+      dispatch({
+        type: ERROR,
+        payload: error
+      });
     }
 
     return 'done';

@@ -1,14 +1,24 @@
 import axios from '.';
 import { HOUSES_URL } from './index';
+import { GET_HOUSES } from './actionTypes'
+import { closeError } from './errors';
 
-const HousesAction = async (url) => {
-  try {
-    let res = await axios.get(`${HOUSES_URL}?${url}`)
-    return res.data;
-  } catch (error) {
-    console.log(error)
+const getHouses = (url) => {
+  return async dispatch => {
+    try {
+      let res = await axios.get(`${HOUSES_URL}?${url}`)
+      dispatch({
+        type: GET_HOUSES,
+        payload: res.data
+      });
+    }
+    catch (error) {
+      closeError()
+    }
+
+    return 'done';
   }
-};
+}
 
 export const createHouse = async (data) => {
   try {
@@ -29,4 +39,4 @@ export const deleteHouse = async (id) => {
 };
 
 
-export default HousesAction;
+export default getHouses;

@@ -13,7 +13,6 @@ export class TenantsService extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <Typography component="div" style={{ padding: 8 * 3 }}>
                 {this.props.children}
