@@ -120,20 +120,8 @@ class PrimarySearchAppBar extends React.Component {
 
   signOut = () => {
     this.setState({ anchorEl: null });
-    try {
-      var auth2 = window.gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-    catch (err) {
-      console.log(err);
-    }
-    finally {
-      authentication.signout();
-      localStorage.removeItem("profile");
-      this.props.history.push('/');
-    }
+    authentication.signout()
+    this.props.history.push('/');
   }
 
   current = () => {

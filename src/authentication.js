@@ -25,5 +25,14 @@ export const authentication = {
     localStorage.clear('isAuthenticated')
     localStorage.clear('user')
     localStorage.clear('profile')
+    try {
+      var auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 }

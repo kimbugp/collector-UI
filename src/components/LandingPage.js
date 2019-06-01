@@ -7,7 +7,9 @@ import NavBar from './NavBar'
 import Image from "../img/main.jpg"
 import Signin from "../others/login"
 import { authentication } from "../authentication";
-import loginAction from '../actions/login';
+import loginAction, { socialAction } from '../actions/login';
+import { connect } from "react-redux";
+
 
 
 const styles = {
@@ -19,7 +21,7 @@ const styles = {
 };
 class LandingPage extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         window.gapi.load('auth2', () => {
             window.gapi.auth2.init({
                 client_id: '715095933691-i190sabpa75e3ltg0ccjq326d5l3gv2h.apps.googleusercontent.com'
@@ -38,8 +40,9 @@ class LandingPage extends Component {
     onSignIn = async (googleUser) => {
         var profile = googleUser.getBasicProfile();
         var access_token = googleUser.Zi.access_token
-        let res = await loginAction({ access_token: access_token });
-        authentication.login(access_token, res, profile)
+        let res = await socialAction({ access_token: `${access_token}` });
+        debugger;
+        authentication.login(`google-oauth2  ${access_token}`, res, profile)
         if (this.props.location.state instanceof (Object)) {
             this.props.history.push(this.props.location.state.from.pathname)
         }
@@ -49,8 +52,27 @@ class LandingPage extends Component {
 
     }
 
+    handleLogin = (event) => {
+        event.preventDefault()
+        this.props.loginAction(this.state)
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.user!==this.props.user){
+          authentication.login(nextProps.user.token,nextProps.user.token,'')
+          this.props.history.push('/dashboard')
+        }
+      }
+
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
     state = {
-        data: []
+        data: [],
+        username: "",
+        password: ""
+
     };
 
     render() {
@@ -60,16 +82,24 @@ class LandingPage extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <div style={styles.paperContainer}>
-                    <NavBar login={false} currentPath={currentPath} />
+                    <NavBar
+                        login={false}
+                        currentPath={currentPath} />
                     <div className={classes.root}>
                         <Grid container justify="center">
                         </Grid>
                     </div>
-                    <Signin googleLogin={this.onSignIn} />
+                    <Signin
+                        googleLogin={this.onSignIn}
+                        login={this.handleLogin}
+                        handleChange={this.handleChange} />
                 </div>
             </React.Fragment>
         )
     }
 }
 
-export default withRouter(withStyles(styles)(LandingPage));
+const mapStateToProps = ({ userReducer }) => ({
+    user: userReducer.user
+});
+export default connect(mapStateToProps, { loginAction })(withRouter(withStyles(styles)(LandingPage)));

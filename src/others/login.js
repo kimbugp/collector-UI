@@ -52,7 +52,7 @@ const styles = theme => ({
   }
 });
 const SignIn=(props)=> {
-  const { classes } = props;
+  const { classes, login , handleChange} = props;
 
   return (
     <main className={classes.main}>
@@ -64,14 +64,14 @@ const SignIn=(props)=> {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={login}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input id="username" name="username" autoComplete="username" autoFocus onChange={handleChange}/>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
+            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={handleChange}/>
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

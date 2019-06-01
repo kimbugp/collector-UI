@@ -5,7 +5,7 @@ import ScrollToTop from './components/ScrollTop'
 import notFound from './components/NotFound'
 import LandingPage from './components/LandingPage';
 import Services from './components/services/Services';
-import { Authenticate } from './authentication';
+import { Authenticate, authentication } from './authentication';
 
 export default props => (
   <BrowserRouter >
@@ -24,6 +24,7 @@ export const PrivateRoute = ({ component: Component, roles = [], ...rest }) => (
   <Route {...rest} render={props => {
     const isLoggedIn = Authenticate()
     if (isLoggedIn === false) {
+      authentication.signout()
       return <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     }
     let values = roles.map(value => (isLoggedIn[value]))

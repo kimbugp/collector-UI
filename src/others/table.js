@@ -89,6 +89,7 @@ export default class Table extends React.Component {
             exportButton: true
 
           }}
+          isLoading={this.props.loading}
         />
         <TableRow>
           <TableCell rowSpan={3} />

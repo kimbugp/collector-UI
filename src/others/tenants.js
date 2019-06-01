@@ -34,8 +34,8 @@ export default class TenantsTable extends React.Component {
           options={{
             filtering: true,
             exportButton: true
-
           }}
+          isLoading={this.props.loading}
         />
       </React.Fragment>
     );
