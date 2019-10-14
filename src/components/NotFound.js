@@ -21,7 +21,7 @@ class notFound extends Component {
                 <div className={classes.root}>
                     <div className={classes.root}>
                         <Grid container justify="center">
-                            <div>Not found</div>
+                            <div>Resource not found</div>
                             <Grid spacing={24} alignItems="center" justify="center" container className={classes.grid}>
                                 <Grid item xs={12}>
                                 </Grid>
