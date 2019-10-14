@@ -20,11 +20,8 @@ export const authentication = {
     localStorage.setItem('user', JSON.stringify(user))
 
   },
-  signout(cb) {
-    localStorage.clear('access_token')
-    localStorage.clear('isAuthenticated')
-    localStorage.clear('user')
-    localStorage.clear('profile')
+  async signout(cb) {
+    localStorage.clear()
     try {
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
